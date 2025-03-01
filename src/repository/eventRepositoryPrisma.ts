@@ -28,6 +28,7 @@ export function getAllEventsWithOrganizer() {
     select: {
       id: true,
       category: true,
+      title: true,
       organizerId: false,
       organizer: {
         select: {

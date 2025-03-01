@@ -8,11 +8,8 @@ dotenv.config();
 import { uploadFile } from './services/uploadFileService';
 const app = express();
 app.use(express.json());
-app.use('/events',eventRoute);
-const port = 3000;
-
-
-
+app.use('/events', eventRoute);
+const port = process.env.PORT || 3000;
 
 const upload = multer({ storage: multer.memoryStorage() });
 
