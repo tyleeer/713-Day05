@@ -19,6 +19,9 @@ export function addEvent(newEvent: Event) {
 
 export async function getAllEventsWithPagination(keyword: string, pageSize: number, pageNo: number) {
   const pageEvents = await repo.getAllEventsWithOrganizerPagination(keyword, pageSize, pageNo);
+  if (pageEvents.count == 0) {
+    throw new Error("No event found.");
+  }
   return pageEvents;
 }
 
