@@ -8,6 +8,9 @@ const router = createRouter({
       path: '/',
       name: 'event-list-view',
       component: () => import('../views/EventListView.vue'),
+      props: (route) => ({
+        page: parseInt(route.query.page as string) || 1,
+      }),
     },
     {
       path: '/about',
