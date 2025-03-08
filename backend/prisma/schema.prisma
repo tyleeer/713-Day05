@@ -1,22 +1,11 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DIRECT_URL")
 }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DIRECT_URL")
-// }
 
 model event {
   id           Int           @id @default(autoincrement())
@@ -29,7 +18,7 @@ model event {
   petsAllowed  Boolean
   organizerId  Int?
   organizer    organizer?    @relation(fields: [organizerId], references: [id])
-  participants participant[]
+  participants participant[] @relation("eventToparticipant")
 }
 
 model organizer {
@@ -42,5 +31,5 @@ model participant {
   id     Int     @id @default(autoincrement())
   name   String
   email  String
-  events event[]
+  events event[] @relation("eventToparticipant")
 }
