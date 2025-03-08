@@ -1,19 +1,19 @@
 services:
   mysql:
     image: mysql:latest
-    container_name: mysql_db    
+    container_name: mysql_db_day05    
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
             
     ports:
-      - "3306:3306"
+      - "3307:3306"
     # volumes:
     #   - mysql_data:/var/lib/mysql
     
 
   phpmyadmin:
     image: phpmyadmin:latest
-    container_name: phpmyadmin    
+    container_name: phpmyadmin_day05    
     depends_on:
       - mysql
     environment:
@@ -21,7 +21,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: rootpassword
     ports:
-      - "9000:80"
+      - "9001:80"
 
 # volumes:
 #   mysql_data:
