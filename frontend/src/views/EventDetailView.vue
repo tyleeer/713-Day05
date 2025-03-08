@@ -3,16 +3,18 @@ import { ref } from 'vue'
 import type { Event } from '@/types'
 import eventService from '@/services/EventService'
 const event = ref<Event>()
-const id = ref<number>(1)
+const props = defineProps<{ id: string }>()
+const id = Number(props.id)
+
 
 eventService
-      .getEvent(id.value)
-      .then((response) => {
-            event.value = response.data
-              })
-      .catch((error) => {
-            console.error('There was an error!', error)
-              })
+    .getEvent(id)
+    .then((response) => {
+        event.value = response.data
+    })
+    .catch((error) => {
+        console.error('There was an error!', error)
+    })
 </script>
 
 <template>
