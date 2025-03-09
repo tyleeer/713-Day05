@@ -29,7 +29,6 @@ watchEffect(() => {
     .then((response) => {
       events.value = response.data
       totalEvents.value = response.headers['x-total-count']
-      console.log("totalEvents: ", totalEvents)
     })
     .catch((error) => {
       console.error('There was an error!', error)
