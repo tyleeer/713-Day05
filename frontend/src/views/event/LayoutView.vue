@@ -3,10 +3,11 @@ import { ref } from 'vue'
 import type { Event } from '@/types'
 import eventService from '@/services/EventService'
 import { onMounted } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView, useRouter } from 'vue-router';
 const event = ref<Event>()
 const props = defineProps<{ id: string }>()
 const id = Number(props.id)
+const router = useRouter()
 
 onMounted(() => {
     eventService
@@ -15,7 +16,11 @@ onMounted(() => {
             event.value = response.data
         })
         .catch((error) => {
-            console.error('There was an error!', error)
+            if (error.response && error.response.status === 404) {
+                router.push({ name: '404-resource-view', params: { resource: 'event' }})
+            } else {
+                router.push({ name: 'network-error-view' })
+            }
         })
 })
 </script>
