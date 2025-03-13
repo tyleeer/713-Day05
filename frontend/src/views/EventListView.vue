@@ -4,6 +4,7 @@ import eventService from '@/services/EventService'
 import { ref, computed, watchEffect } from 'vue'
 import type { Event } from '@/types'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 const events = ref<Event[]>([])
 const totalEvents = ref(0)

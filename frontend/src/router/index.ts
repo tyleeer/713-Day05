@@ -15,6 +15,14 @@ const router = createRouter({
       }),
     },
     {
+      path: '/participants',
+      name: 'participant-list-view',
+      component: () => import('../views/ParticipantListView.vue'),
+      props: (route) => ({
+        page: parseInt(route.query.page as string) || 1,
+      }),
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue'),
