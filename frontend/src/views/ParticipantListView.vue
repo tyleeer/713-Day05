@@ -9,7 +9,7 @@ const router = useRouter()
 const participants = ref<Participant[]>([])
 const totalParticipants = ref(0)
 const hasNextPage = computed(() => {
-  const totalPages = Math.ceil(totalParticipants.value / 4)
+  const totalPages = Math.ceil(totalParticipants.value / 2)
   return page.value < totalPages
 })
 
@@ -24,7 +24,7 @@ const page = computed(() => props.page)
 
 watchEffect(() => {
   participantService
-    .getParticipants(page.value, 4)
+    .getParticipants(page.value, 2)
     .then((response) => {
       participants.value = response.data
       totalParticipants.value = response.headers['x-total-count']
@@ -36,7 +36,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <h1>Events For Good</h1>
+  <h1>Participants For Good</h1>
   <div class="events">
     <ParticipantCard v-for="participant in participants" :key="participant.id" :participant="participant" />
     <div class="pagination">
