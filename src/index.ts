@@ -10,6 +10,8 @@ const app = express();
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173'];
 
+console.log("allowedOrigins: ", allowedOrigins);
+
 const options: cors.CorsOptions = {
   origin: allowedOrigins.length > 0 ? allowedOrigins : false, // Prevent empty origin issue
 };
