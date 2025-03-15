@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import nProgress from 'nProgress'
+// import nProgress from 'nProgress'
 import { useEventStore } from '@/stores/event'
 import eventService from '@/services/EventService'
 
@@ -100,12 +100,12 @@ const router = createRouter({
 
 })
 
-router.beforeEach(() => {
-  nProgress.start()
-})
+// router.beforeEach(() => {
+//   nProgress.start()
+// })
 
-router.afterEach(() => {
-  nProgress.done()
-})
+// router.afterEach(() => {
+//   nProgress.done()
+// })
 
 export default router
