@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import multer from 'multer';
 import dotenv from 'dotenv';
 import eventRoute from './routes/eventRoute';
+import authRoute from './routes/authRoutes';
 import participantRoute from './routes/participantRoute';
 import cors from 'cors';
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors(options));
 app.use(express.json());
 app.use('/events', eventRoute);
 app.use('/participants', participantRoute);
+app.use('/authenticate', authRoute);
 const port = process.env.PORT || 3000;
 
 const upload = multer({ storage: multer.memoryStorage() });
