@@ -28,6 +28,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+    },
+    {
       path: '/event/:id',
       name: 'event-layout-view',
       component: () => import('../views/event/LayoutView.vue'),
