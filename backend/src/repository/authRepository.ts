@@ -52,6 +52,14 @@ export async function registerUser(organizerName: string, username: string, pass
                 },
             },
         },
+        include: {
+            roles: true,
+            organizer: {
+                include: {
+                    events: true,
+                },
+            },
+        },
     });
 }
 
