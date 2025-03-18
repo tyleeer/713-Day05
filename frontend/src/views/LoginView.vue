@@ -1,16 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-const email = ref('')
-const password = ref('')
+import InputText from '@/components/InputText.vue'
+import * as yup from 'yup'
+import { useField, useForm } from 'vee-validate'
+const validationSchema = yup.object({
+    email: yup.string().required('The email is required').email('Input must be an email.'),
+    password: yup
+        .string()
+        .required('The password is required')
+        .min(6, 'The password must be at least 6 characters.'),
+})
+const { errors, handleSubmit } = useForm({
+    validationSchema,
+    initialValues: {
+        email: '',
+        password: '',
+    },
+})
+const { value: email } = useField<string>('email')
+const { value: password } = useField<string>('password')
+const onSubmit = handleSubmit((values: any) => {
+    console.log(values)
+})
 </script>
 
 
 <template>
-    <pre>
-    {{ email }}
-    {{ password }}
-    </pre>
-
     <div class="flex min-h-full flex-1 flex-col justify-center items-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <img class="mx-auto h-10 w-100"
@@ -20,14 +34,14 @@ const password = ref('')
             </h2>
         </div>
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="#" method="POST">
+            <form class="space-y-6" @submit.prevent="onSubmit">
                 <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email
+                    <label for="email" class="block text-sm font-medium text-start leading-6 text-gray-900">Email
                         address</label>
-                    <div class="mt-2">
-                        <input id="email" name="email" type="email" required="true"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-                    </div>
+
+                    <InputText id="email" type="email" v-model="email" placeholder="Email address"
+                        :error="errors['email']" />
+
                 </div>
                 <div>
                     <div class="flex items-center justify-between">
@@ -37,11 +51,11 @@ const password = ref('')
                                 password?</a>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <input id="password" name="password" type="password"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                    
+                    <InputText  type="password"  v-model="password"  placeholder="Password" 
+                        :error="errors['password']"  autocomplete="false"  />
+
                     </div>
-                </div>
                 <div>
                     <button type="submit"
                         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
