@@ -2,6 +2,8 @@
 import InputText from '@/components/InputText.vue'
 import * as yup from 'yup'
 import { useField, useForm } from 'vee-validate'
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
 const validationSchema = yup.object({
     email: yup.string().required('The email is required').email('Input must be an email.'),
     password: yup
@@ -18,8 +20,14 @@ const { errors, handleSubmit } = useForm({
 })
 const { value: email } = useField<string>('email')
 const { value: password } = useField<string>('password')
-const onSubmit = handleSubmit((values: any) => {
-    console.log(values)
+
+const onSubmit = handleSubmit(async (values) => {
+    try {
+        const response = await authStore.login(values.email, values.password)
+        console.log(response.data.access_token)
+    } catch {
+        console.log('unauthorized')
+    }
 })
 </script>
 
@@ -51,11 +59,11 @@ const onSubmit = handleSubmit((values: any) => {
                                 password?</a>
                         </div>
                     </div>
-                    
-                    <InputText  type="password"  v-model="password"  placeholder="Password" 
-                        :error="errors['password']"  autocomplete="false"  />
 
-                    </div>
+                    <InputText type="password" v-model="password" placeholder="Password" :error="errors['password']"
+                        autocomplete="false" />
+
+                </div>
                 <div>
                     <button type="submit"
                         class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
