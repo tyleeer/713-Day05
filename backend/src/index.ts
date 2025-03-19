@@ -11,9 +11,10 @@ dotenv.config();
 import { uploadFile } from './services/uploadFileService';
 const app = express();
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5173'];
+console.log("allowedOrigins: ", allowedOrigins);
 const options: cors.CorsOptions = {
-  origin: allowedOrigins
+  origin: allowedOrigins.length > 0 ? allowedOrigins : false, // Prevent empty origin issue
 };
 
 // Then pass these options to cors:
