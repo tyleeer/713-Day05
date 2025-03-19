@@ -14,7 +14,7 @@ export interface Event {
 
 export type Organizer = {
     id?: number
-    name: string
+    username: string
     events?: Event[]
 }
 
